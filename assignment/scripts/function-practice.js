@@ -135,16 +135,41 @@ console.log('onlyPositive: Expect [5,6], got:', onlyPositive(testPositive));
 //If a number is Oddish, return "Oddish". Otherwise, return "Evenish".
 
 function oddish(num) {
-  let numString = num.toString();
-  let numSum = 0;
-  for (i = 0; i < numString.length; i++) {
-    numSum += Number(numString[i]);
+  let numString = num.toString(); //Convert num to a string and store it in numString
+  let numSum = 0; //Innitialize numSum at 0
+  for (i = 0; i < numString.length; i++) { //Loop through each character in numString
+    numSum += Number(numString[i]); //Convert each character to a number and add it to numSum
   }
-  if (numSum % 2 === 0) {
-    return 'Evenish';
+  if (numSum % 2 === 0) { //If the remainder after dividing numSum by 2 is 0, it is an even number
+    return 'Evenish'; //Return evenish
   }
-  return 'Oddish';
+  return 'Oddish'; //If evenish was not returned, return oddish
 }
 
 console.log('oddish: Expected Oddish, got:', oddish(153));
 console.log('oddish: Expected Evenish, got:', oddish(26));
+
+//--------------------Sort numbers in descending order--------------------//
+// Given a number, return a number with the same integers but in descending order.
+
+function descendingOrder(n) { 
+  let numString = n.toString(); //Convert the n number to a string
+  let descendingNum = []; //Innitialize an empty array
+  for(let i = 0; i < numString.length; i++) {descendingNum.push(-1)}; //Fill the descendingNum array with placeholder values up to the length of numString
+  for(let i = 0; i < numString.length; i++) { //Loop through the numString index
+    let thisIndex = 0; //Innitialize thisIndex as 0 at the beginning of each loop
+    for(let k = 0; k < numString.length; k++) { //Loop through the array a second time
+      if(numString[i] < numString[k]) { //If numString at i is less than numString at k
+        thisIndex++; //Add one to thisIndex //thisIndex becomes the number of values that numString[i] is less than and that value is used to place numString[i] 
+      }              //in the descendingNum array at index thisIndex
+    } //while loop for repeted numbers, e.g. 3 and 3 would have the same thisIndex value after the for loop
+    while (descendingNum[thisIndex] != -1) { //If descendingNum at thisIndex is not -1, that index has already been filled
+      thisIndex++; //Add one to the index and repete until a -1 index is found.
+    }
+    descendingNum[thisIndex] = numString[i]; //Set descendingNum at thisIndex to equal numString at i
+  }
+  return Number(descendingNum.join('')); //Join the array togeather and convert it to a number. Return that number
+}
+
+n = 355564372;
+console.log(descendingOrder(n));
